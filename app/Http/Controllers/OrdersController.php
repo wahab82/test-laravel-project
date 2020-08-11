@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Order;
 use App\OrderItem;
+use App\Jobs\SendOrderNotification;
+use App\Jobs\SendNotificationWarehouse;
 
 class OrdersController extends Controller
 {
@@ -49,6 +51,11 @@ class OrdersController extends Controller
 		$order_item->order_id = $order->id;
 		$order_item->quantity = $request->input('quantity');
 		$order_item->save();
+
+		$product = Product::find($order_item->product_id);
+		
+		dispatch(new SendOrderNotification($order, $product));
+		dispatch(new SendNotificationWarehouse($order, $product));
 
 		return redirect('/')->with('success', 'Order dispatched successfully.');
 	}

@@ -45,7 +45,7 @@
 											@foreach($products as $product)
 												<tr>
 													<td>{{$product->name}}</td>
-													<td><img src="/storage/images/{{$product->image_url}}"></td>
+													<td><img src="https://dummyimage.com/300" width="50"></td>
 													<td><a href="/orders/{{$product->id}}/order" class="btn btn-secondary">Order</a></td>
 												</tr>
 											@endforeach
