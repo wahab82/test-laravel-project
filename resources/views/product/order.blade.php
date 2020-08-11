@@ -19,7 +19,20 @@
 					<div class="row justify-content-center">
 						<div class="col-md-8">
 							<h1>Ordering {{$product->name}}</h1>
-							{!! Form::open(['action' => ['ProductsController@storeOrder', $product->id], 'method' => 'POST']) !!}
+
+							@if(count($errors) > 0)
+								@foreach($errors->all() as $error)
+									<div class="alert alert-danger">
+										{{$error}}
+									</div>
+								@endforeach
+							@endif
+
+							{!! Form::open(['action' => ['OrdersController@storeOrder'], 'method' => 'POST']) !!}
+								<div class="form-group">
+									{{Form::label('quantity', 'Quantitiy of product')}}
+									{{Form::number('quantity', '', ['class' => 'form-control', 'placeholder' => 'Quantitiy of product'])}}
+								</div>
 								<div class="form-group">
 									{{Form::label('email', 'Email')}}
 									{{Form::text('email', '', ['class' => 'form-control', 'placeholder' => 'Email'])}}
@@ -48,6 +61,7 @@
 									{{Form::label('zip_postal_code', 'Zip/Postal Code')}}
 									{{Form::text('zip_postal_code', '', ['class' => 'form-control', 'placeholder' => 'Zip/Postal Code'])}}
 								</div>
+								{{Form::hidden('product_id', $product->id)}}
 								{{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
 							{!! Form::close() !!}
 						</div>

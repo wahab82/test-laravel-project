@@ -18,6 +18,19 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-8">
+
+							@if(session('success'))
+								<div class="alert alert-success">
+									{{session('success')}}
+								</div>
+							@endif
+
+							@if(session('error'))
+								<div class="alert alert-danger">
+									{{session('error')}}
+								</div>
+							@endif
+
 							<div class="card">
 								<h1 class="card-header">Products</h1>
 
@@ -33,7 +46,7 @@
 												<tr>
 													<td>{{$product->name}}</td>
 													<td><img src="/storage/images/{{$product->image_url}}"></td>
-													<td><a href="/products/{{$product->id}}/order" class="btn btn-secondary">Order</a></td>
+													<td><a href="/orders/{{$product->id}}/order" class="btn btn-secondary">Order</a></td>
 												</tr>
 											@endforeach
 										</table>
